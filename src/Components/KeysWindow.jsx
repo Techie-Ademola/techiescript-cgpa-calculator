@@ -46,9 +46,9 @@ const KeysWindow = ({ handleButton }) => {
             } `}
             onClick={() => handleButton(item)}
           >
-          {item === "DEL" ? <i class="bi bi-backspace-fill text-white"></i> :
-            item === "." ? <i class="bi bi-dot text-white"></i> :
-            item === "*" ? <i class="bi bi-x"></i> : item}
+          {item === "DEL" ? <i className="bi bi-backspace-fill text-white"></i> :
+            item === "." ? <i className="bi bi-dot text-white"></i> :
+            item === "*" ? <i className="bi bi-x"></i> : item}
             {/* {} */}
           </button>
         ))}

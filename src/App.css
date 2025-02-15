@@ -548,7 +548,7 @@ input:focus-visible {
     flex-direction: column;
     gap: 0.5rem;
     /* Reduce gaps */
-    padding: 0.5rem;
+    padding: 0.5rem 0;
   }
 
   .keys_scientific {
