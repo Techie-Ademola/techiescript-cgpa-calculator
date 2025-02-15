@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DisplayWindow from "./DisplayWindow.jsx";
 import KeysWindow from "./KeysWindow.jsx";
+import { toast } from "sonner";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
@@ -26,10 +27,12 @@ const Calculator = () => {
         compute = parseFloat(compute.toFixed(4));
         setResult(compute);
       } catch (error) {
-        setResult("An Error Occurred!");
+      toast.success("Calc Error!");
+        setResult("0");
       }
     } else {
-      setResult("An Error Occurred!");
+      toast.success("Calc Error!");
+      setResult("0");
     }
   }
 
