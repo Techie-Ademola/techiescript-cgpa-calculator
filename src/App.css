@@ -659,12 +659,15 @@ input:focus-visible {
   padding-top: 1.5em;
   border: #444444 1px solid;
   border-radius: 5px;
-  padding: 15px;
+  padding: 10px 15px;
 }
   .history-drawer ul li {
   color: #747474;
   padding: 10px 0;
   border-bottom: #444444 1px dashed;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
 }
 .history-drawer ul li:last-of-type {
   border-bottom: none;
