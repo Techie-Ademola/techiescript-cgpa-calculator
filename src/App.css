@@ -457,6 +457,7 @@ input:focus-visible {
   font-size: 2.5rem;
   font-weight: 600;
   overflow-x: auto;
+  overflow-y: hidden;
   width: 100%;
   /* scrollbar-width: none; */
 
@@ -593,4 +594,9 @@ input:focus-visible {
     background: radial-gradient(circle 230px at 0% 0%, #ffffff, #0c0d0d);
     position: relative;
   }
+}
+div::-webkit-scrollbar,
+div::-webkit-scrollbar-track {
+  appearance: none;
+  display: none;
 }
