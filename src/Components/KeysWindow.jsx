@@ -1,7 +1,7 @@
 import React from "react";
 
-const KeysWindow = ({ handleButton }) => {
-//   const sciKeys = ["sin", "cos", "ln", "log", "tan", "π", "e", "^", "√"];
+const KeysWindow = ({ handleButton, setIsDrawerOpen }) => {
+  //   const sciKeys = ["sin", "cos", "ln", "log", "tan", "π", "e", "^", "√"];
   const sciKeys = ["sin", "cos", "ln", "log", "tan", "π", "e", "^", "!", "√"];
 
   const basicKeys = [
@@ -35,6 +35,10 @@ const KeysWindow = ({ handleButton }) => {
             {item}
           </button>
         ))}
+        <button 
+        onClick={() => setIsDrawerOpen(true)} 
+        className="text-light"
+        style={{ gridColumn: "span 2", fontSize: '16px' }}>Calc. History</button>
       </div>
       <div className="line"></div>
       <div className="keys_basic mt-2">
@@ -46,9 +50,15 @@ const KeysWindow = ({ handleButton }) => {
             } `}
             onClick={() => handleButton(item)}
           >
-          {item === "DEL" ? <i className="bi bi-backspace-fill text-white"></i> :
-            item === "." ? <i className="bi bi-dot text-white"></i> :
-            item === "*" ? <i className="bi bi-x"></i> : item}
+            {item === "DEL" ? (
+              <i className="bi bi-backspace-fill text-white"></i>
+            ) : item === "." ? (
+              <i className="bi bi-dot text-white"></i>
+            ) : item === "*" ? (
+              <i className="bi bi-x"></i>
+            ) : (
+              item
+            )}
             {/* {} */}
           </button>
         ))}
