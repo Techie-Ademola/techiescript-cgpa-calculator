@@ -27,8 +27,11 @@ html, body {
 
 body {
   margin: 0;
+  padding-top: 0;
+  padding-bottom: 4em;
   display: flex;
-  place-items: center;
+  justify-content: center;
+  /* place-items: center; */
   /* min-width: 320px; */
   min-height: 100vh;
   background-color: #242424 !important;

@@ -1,5 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
 #root {
   width: 1050px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -39,7 +42,7 @@ h1 span {
   color: #fff;
   font-size: 12px;
   text-align: center;
-  padding: 40px 0 10px;
+  padding: 20px 0 10px;
   position: relative;
   /* bottom: 15px;
   right: 15px; */
@@ -97,7 +100,8 @@ input:focus-visible {
   border: 1px solid #28a745 !important;
 }
 
-.border-bottom, .border-top {
+.border-bottom,
+.border-top {
   border-color: rgb(52, 58, 64) !important;
 }
 
@@ -130,19 +134,23 @@ input:focus-visible {
 }
 
 @keyframes moveDot {
+
   0%,
   100% {
     top: 10%;
     right: 10%;
   }
+
   25% {
     top: 10%;
     right: calc(100% - 35px);
   }
+
   50% {
     top: calc(100% - 30px);
     right: calc(100% - 35px);
   }
+
   75% {
     top: calc(100% - 30px);
     right: 10%;
@@ -164,6 +172,7 @@ input:focus-visible {
   flex-direction: column;
   color: #fff;
 }
+
 .ray {
   width: 220px;
   height: 45px;
@@ -193,33 +202,389 @@ input:focus-visible {
   position: absolute;
   background-color: #2c2c2c;
 }
+
 .topl {
   top: 10%;
   background: linear-gradient(90deg, #888888 30%, #1d1f1f 70%);
 }
+
 .bottoml {
   bottom: 10%;
 }
+
 .leftl {
   left: 10%;
   width: 1px;
   height: 100%;
   background: linear-gradient(180deg, #747474 30%, #222424 70%);
 }
+
 .rightl {
   right: 10%;
   width: 1px;
   height: 100%;
 }
 
+/* ======== Bottom Navbar Styles ========= */
+
+:root {
+  --clr: #29fd53;
+}
+
+/* body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #111;
+} */
+
+.navigation {
+  width: 400px;
+  max-width: 100%;
+  height: 70px;
+  background: #333;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.navigation ul {
+  position: relative;
+  display: flex;
+  width: 350px;
+  max-width: 100%;
+  padding-left: 0 !important;
+}
+
+.navigation ul li {
+  position: relative;
+  list-style: none;
+  /* width: 70px; */
+  width: 100%;
+  height: 70px;
+  z-index: 1;
+}
+
+.navigation ul li a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+}
+
+.navigation ul li a .icon {
+  position: relative;
+  display: block;
+  line-height: 75px;
+  font-size: 1.5em;
+  text-align: center;
+  transition: .5s;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.navigation ul li:hover a .icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.navigation ul li.active a .icon {
+  transform: translateY(-8px);
+  color: #29fd53;
+}
+
+.navigation ul li a .text {
+  position: absolute;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.5em;
+  letter-spacing: 0.05em;
+  transition: .5s;
+  opacity: 0;
+  text-transform: uppercase;
+  transform: translateY(0px);
+}
+
+.navigation ul li.active a .text {
+  opacity: 1;
+  transform: translateY(18px);
+}
+
+.indicator {
+  position: absolute;
+  /* width: 70px; */
+  width: 50%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .5s;
+}
+
+.indicator::before {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  background: darkgreen;
+  /* width: 80%; */
+  width: 55px;
+  height: 17px;
+  border-radius: 10px;
+}
+
+.indicator::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  width: 7.5px;
+  height: 7.5px;
+  border-radius: 50%;
+  background: #333;
+  box-shadow: 0 0 0 2px var(--clr),
+    50px 50px var(--clr),
+    40px 0 var(--clr),
+    0 40px var(--clr);
+  transform: rotate(45deg);
+  animation: animate 2s ease-in-out infinite;
+}
+
+@keyframes animate {
+
+  0%,
+  100% {
+    transform: rotate(35deg);
+  }
+
+  50% {
+    transform: rotate(55deg);
+  }
+}
+
+.navigation ul li:nth-child(2).active~.indicator {
+  transform: translateX(calc(100% * 1));
+}
+
+.navigation ul li:nth-child(3).active~.indicator {
+  transform: translateX(calc(70px * 2));
+}
+
+.navigation ul li:nth-child(4).active~.indicator {
+  transform: translateX(calc(70px * 3));
+}
+
+.navigation ul li:nth-child(5).active~.indicator {
+  transform: translateX(calc(70px * 4));
+}
+
+
+/* ======== Calculator Styles ========= */
+
+
+.calculator button,
+.calculator button:active,
+.calculator button:focus {
+  border: none !important;
+  outline: none !important;
+  appearance: none;
+  box-shadow: none !important;
+  /* background: transparent; */
+  color: inherit;
+}
+
+/* body {
+  background-color: #0f0f0f;
+  color: white;
+  background-image: linear-gradient(#161616 1px, transparent 1px),
+    linear-gradient(to right, #161616 1px, #0f0f0f 1px);
+  background-size: 20px 20px;
+} */
+
+/* .App {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+} */
+
+.calculator .developer span {
+  font-weight: 600;
+  color: #00ff62;
+}
+
+.calculator {
+  /* border: 3px solid rgba(255, 255, 255, 0.3); */
+  /* border-radius: 10px; */
+  width: 600px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.calculator .displayWindow {
+  width: 100%;
+  background-color: rgb(20, 20, 20);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 1rem 1.5em;
+  height: 120px;
+  flex-direction: column;
+  overflow-x: auto;
+
+}
+
+.calculator .displayWindow .expression {
+  overflow-x: auto;
+  text-align: right;
+  font-size: 20px !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-weight: 600;
+  scrollbar-width: none;
+}
+
+.calculator .displayWindow .result {
+  font-size: 2.5rem;
+  font-weight: 600;
+  overflow-x: auto;
+  width: 100%;
+  /* scrollbar-width: none; */
+
+}
+
+.calculator .keysWindow {
+  width: 100%;
+  background-color: rgb(29, 29, 29);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calculator .keysWindow button {
+  padding: 0.8rem 0rem;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+
+.calculator .keysWindow button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.calculator .keys_scientific {
+  /* width: 30%; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.calculator .line {
+  /* margin-block: 1.5rem; */
+  display: block;
+  position: relative !important;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.calculator .keys_basic {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.calculator .keys_basic .equal {
+  background-color: #00ff62;
+  color: #0f0f0f;
+}
+
+.calculator .keys_basic .number {
+  color: white;
+  font-weight: 600;
+}
+
+@media (max-width: 610px) {
+
+  .calculator {
+    width: 100% !important;
+    overflow: hidden;
+  }
+
+  .displayWindow {
+    height: auto;
+    /* Allow the height to adjust based on content */
+    padding: 1rem !important;
+    /* Reduce padding for smaller screens */
+    /* padding: 1rem 1em; */
+  }
+
+  .displayWindow .expression {
+    font-size: 0.9rem;
+    /* Smaller font for expressions */
+  }
+
+  .displayWindow .result {
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: right;
+    /* Adjust font size for the result */
+    /* word-wrap: break-word; */
+    /* Ensure long results wrap */
+  }
+
+  .keysWindow {
+    flex-direction: column;
+    gap: 0.5rem;
+    /* Reduce gaps */
+    padding: 0.5rem;
+  }
+
+  .keys_scientific {
+    width: 100%;
+    /* Use full width */
+    grid-template-columns: repeat(4, 1fr);
+    /* Adjust column count for small screens */
+    gap: 0.5rem;
+    /* Adjust spacing */
+  }
+
+  .keys_basic {
+    grid-template-columns: repeat(4, 1fr);
+    /* Adjust column count for small screens */
+    gap: 0.5rem;
+    /* Reduce gaps */
+  }
+
+  .keysWindow button {
+    width: 100%;
+    padding: 0.5rem 0rem;
+    /* Reduce padding */
+    font-size: 1rem;
+    /* Smaller button font */
+  }
+}
+
 
 @media (max-width: 576px) {
   #root {
     max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
-    padding: .5rem;
+    padding: 0 .5rem 1rem;
     text-align: center;
   }
+
   .outer {
     /* width: 300px; */
     height: 200px;

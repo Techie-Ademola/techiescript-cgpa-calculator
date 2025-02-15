@@ -486,10 +486,6 @@ export default function App() {
         <h2 className="font-weight-bold">Cumulative CGPA:</h2>
         <p className="text-xl">{results.CGPA}</p>
       </div> */}
-
-      <div className="author">
-        Developed by <span>Techiescript 👨‍💻 </span>
-      </div>
     </div>
   );
 }
