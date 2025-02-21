@@ -38,6 +38,14 @@ export default function BottomNavbar() {
                         <span className="text">CalcES</span>
                     </Link>
                 </li>
+                <li className={`list ${activeLink === "/chat" ? "active" : ""}`}>
+                    <Link to="/chat" onClick={() => handleLinkClick("/chat")}>
+                        <span className="icon">
+                            <i className="bi bi-chat-quote"></i>
+                        </span>
+                        <span className="text">Chat AI</span>
+                    </Link>
+                </li>
                 {/* <li className={`list ${activeLink === "/messages" ? "active" : ""}`}>
                     <Link to="/messages" onClick={() => handleLinkClick("/messages")}>
                         <span className="icon">

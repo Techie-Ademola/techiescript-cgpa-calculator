@@ -220,7 +220,7 @@ export default function App() {
   };
 
   return (
-    <div className="container px-sm-4 pt-3">
+    <div className="container px-sm-4 pt-3 cgpa_calc">
       <div className="jumbotron pt-0 bg-dark">
       <div className="fit-content">
         <img src="./cgpa_logo_edited.png" alt="" />

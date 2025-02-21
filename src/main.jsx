@@ -7,20 +7,25 @@ import { Toaster } from "sonner";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import Home from "./Home.jsx"; // Import your Home component
 import BottomNav from "./BottomNavbar.jsx"; // Import your Home component
-import AnotherPage from "./Calc.jsx"; // Import another page component
+import CalcPage from "./Calc.jsx"; // Import another page component
+import ChatPage from "./Chat.jsx"; // Import another page component
+import ContextProvider from './context/Context.jsx'
 
 createRoot(document.getElementById("root")).render(
+  <ContextProvider>
   <StrictMode>
     <Router>
       <Toaster position="top-center" visibleToasts={1} />
       <Routes>
         <Route path="/" element={<App />} /> {/* Home route */}
-        <Route path="/calculator" element={<AnotherPage />} /> {/* Another page route */}
+        <Route path="/calculator" element={<CalcPage />} /> {/* Another page route */}
+        <Route path="/chat" element={<ChatPage />} /> {/* Another page route */}
       </Routes>
       {/* <App /> */}
       <BottomNav />
     </Router>
   </StrictMode>
+  </ContextProvider>
 );
 
 
