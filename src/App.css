@@ -796,23 +796,28 @@ div::-webkit-scrollbar-track {
   bottom: 70px;
   width: 100%;
   max-width: 900px;
-  padding: 0px 12px;
+  padding: 6px 12px 0;
   margin: auto;
   z-index: 99;
   background-color: #242424 !important;
 }
 
 .chat_screen .search-box {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 0px;
   background-color: #343a40;
   padding: 4px 4px 4px 14px;
   border-radius: 50px;
 }
 
 .chat_screen .search-box .send_icon {
+  /* position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%); */
   min-width: 46px;
   min-height: 46px;
   display: flex;
@@ -828,12 +833,13 @@ div::-webkit-scrollbar-track {
 }
 
 .chat_screen .search-box input {
-  flex: 1;
+  /* flex: 1; */
   background-color: #343a40 !important;
   border: none !important;
   outline: none !important;
   padding: 8px;
   font-size: 18px;
+  width: 100%;
 }
 
 .chat_screen .search-box div {
@@ -862,7 +868,7 @@ div::-webkit-scrollbar-track {
 .chat_screen .result-title {
   margin: 30px 0px 10px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
 }
 

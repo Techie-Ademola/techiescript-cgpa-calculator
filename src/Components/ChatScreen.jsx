@@ -125,7 +125,17 @@ const ChatScreen = () => {
                     src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-wvomdMC7MsytJXsaJXl4FLQUfTpr3Rdyw&s`}
                     alt=""
                   />
-                  <p className="text-left">{item.prompt}</p>
+                  <p
+                    className="text-left mb-0"
+                    style={{
+                      textWrap: "wrap",
+                      wordWrap: "break-word",
+                      whiteSpace: "normal",
+                      wordBreak: "break-all",
+                    }}
+                  >
+                    {item.prompt}
+                  </p>
                 </div>
                 <div className="result-data">
                   <img src={assets.gemini_icon} alt="" />
@@ -164,9 +174,11 @@ const ChatScreen = () => {
               type="text"
               placeholder="Enter a prompt here"
             />
-            <div className="send_icon cursor-pointer" onClick={() => input.length < 1 ? null : onSent()}
-            style={{cursor: 'pointer'}}
-              >
+            <div
+              className="send_icon cursor-pointer"
+              onClick={() => (input.length < 1 ? null : onSent())}
+              style={{ cursor: "pointer" }}
+            >
               {/* <img src={assets.gallery_icon} alt=''/> */}
               {/* <img src={assets.mic_icon} alt=''/> */}
 
