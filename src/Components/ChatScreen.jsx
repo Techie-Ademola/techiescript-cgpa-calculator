@@ -17,13 +17,13 @@ const ChatScreen = () => {
 
   const mainContainerRef = useRef(null);
 
-  useEffect(() => {
-    if (mainContainerRef.current) {
-      mainContainerRef.current.scrollTop =
-        mainContainerRef.current.scrollHeight;
-      mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [responses]);
+  //   useEffect(() => {
+  //     if (mainContainerRef.current) {
+  //       mainContainerRef.current.scrollTop =
+  //         mainContainerRef.current.scrollHeight;
+  //       mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
+  //     }
+  //   }, [responses]);
 
   const handleCardClick = (promptText) => {
     setInput(promptText);
@@ -31,10 +31,25 @@ const ChatScreen = () => {
   };
 
   const scrollToBottom = () => {
-    if (mainContainerRef.current) {
-      mainContainerRef.current.scrollTop =
-        mainContainerRef.current.scrollHeight;
-      mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
+    // input.length < 1 ? null : onSent();
+
+    if (input.length > 0) {
+      onSent();
+
+        setTimeout(() => {
+            if (mainContainerRef.current) {
+              mainContainerRef.current.scrollTop =
+                mainContainerRef.current.scrollHeight;
+              mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
+            }
+        }, 500);
+    } else {
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && input.length > 0) {
+        scrollToBottom();
     }
   };
 
@@ -139,20 +154,10 @@ const ChatScreen = () => {
                 </div>
                 <div className="result-data">
                   <img src={assets.gemini_icon} alt="" />
-                  {loading ? (
-                    <div className="loader">
-                      <hr />
-                      <hr />
-                      <hr />
-                    </div>
-                  ) : (
-                    <>
-                      <p
-                        key={index}
-                        dangerouslySetInnerHTML={{ __html: item.response }}
-                      ></p>
-                    </>
-                  )}
+                  <p
+                    key={index}
+                    dangerouslySetInnerHTML={{ __html: item.response }}
+                  ></p>
                 </div>
 
                 {/* <div key={index}>
@@ -161,10 +166,27 @@ const ChatScreen = () => {
               </div> */}
               </div>
             ))}
+
+            {loading ? (
+              <div className="result-data">
+                <img
+                  className={`${loading ? "isLoading" : ""}`}
+                  src={assets.gemini_icon}
+                  alt=""
+                />
+                <div className="loader">
+                  <hr />
+                  <hr />
+                  <hr />
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
           </>
         )}
 
-        <div className="w-100" ref={mainContainerRef}></div>
+        <div className="w-100 pt-5" ref={mainContainerRef}></div>
 
         <div className="main-bottom">
           <div className="search-box">
@@ -172,11 +194,12 @@ const ChatScreen = () => {
               onChange={(e) => setInput(e.target.value)}
               value={input}
               type="text"
-              placeholder="Enter a prompt here"
+              placeholder="Enter a prompt here..."
+              onKeyDown={handleKeyDown}
             />
             <div
               className="send_icon cursor-pointer"
-              onClick={() => (input.length < 1 ? null : onSent())}
+              onClick={() => scrollToBottom()}
               style={{ cursor: "pointer" }}
             >
               {/* <img src={assets.gallery_icon} alt=''/> */}
