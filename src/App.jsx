@@ -220,10 +220,20 @@ export default function App() {
   };
 
   return (
-    <div className="container px-sm-4 pt-3 cgpa_calc">
-      <div className="jumbotron pt-0 bg-dark">
+    <div className="container px-sm-4 pt-3 cgpa_calc" style={{
+  width: '800px',
+  maxWidth: '100%',
+  margin: '0 auto'
+    }}>
+      <div className="jumbotron position-relative pt-0 bg-white">
       <div className="fit-content">
-        <img src="./cgpa_logo_edited.png" alt="" />
+        <img src="./cgpa_logo.png" alt="" />
+
+        <div className="greet text-center my-0">
+              <p className="mb-0">
+                <span className="font-weight-bold text-uppercase"><span className="d-block text-center text-lowercase">for</span> Tasuedites.</span>
+              </p>
+            </div>
       </div>
         {/* <h1 className="text-center font-weight-bold">CGPA Calculator</h1> */}
       </div>

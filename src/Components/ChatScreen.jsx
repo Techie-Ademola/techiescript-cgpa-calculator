@@ -30,10 +30,11 @@ const ChatScreen = () => {
     onSent(promptText);
   };
 
-  const scrollToBottom = () => {
+  const handleSubmit = () => {
     // input.length < 1 ? null : onSent();
 
     if (input.length > 0) {
+        setInput('');
       onSent();
 
         setTimeout(() => {
@@ -49,7 +50,7 @@ const ChatScreen = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && input.length > 0) {
-        scrollToBottom();
+        handleSubmit();
     }
   };
 
@@ -62,7 +63,7 @@ const ChatScreen = () => {
           {/* <button></button> */}
           {/* <img src={assets.user_icon} alt="" /> */}
           <img
-            src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-wvomdMC7MsytJXsaJXl4FLQUfTpr3Rdyw&s`}
+            src={assets.chat_user}
             alt=""
           />
         </div>
@@ -137,7 +138,7 @@ const ChatScreen = () => {
               <div className="result">
                 <div className="result-title border-bottom pb-2">
                   <img
-                    src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-wvomdMC7MsytJXsaJXl4FLQUfTpr3Rdyw&s`}
+                    src={assets.chat_user}
                     alt=""
                   />
                   <p
@@ -199,7 +200,7 @@ const ChatScreen = () => {
             />
             <div
               className="send_icon cursor-pointer"
-              onClick={() => scrollToBottom()}
+              onClick={() => handleSubmit()}
               style={{ cursor: "pointer" }}
             >
               {/* <img src={assets.gallery_icon} alt=''/> */}
@@ -218,7 +219,7 @@ const ChatScreen = () => {
         </div>
       </div>
 
-      {/* <button onClick={scrollToBottom} className="scroll-to-bottom btn">
+      {/* <button onClick={handleSubmit} className="scroll-to-bottom btn">
         Scroll to Bottom
       </button> */}
     </div>

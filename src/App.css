@@ -240,7 +240,7 @@ input:focus-visible {
 } */
 
 .navigation {
-  width: 400px;
+  width: 100%;
   max-width: 100%;
   height: 70px;
   background: #343a40 !important;
@@ -451,6 +451,7 @@ input:focus-visible {
   width: 600px;
   max-width: 100%;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .calculator .displayWindow {
@@ -481,6 +482,7 @@ input:focus-visible {
   overflow-x: auto;
   overflow-y: hidden;
   width: 100%;
+  text-align: right;
   /* scrollbar-width: none; */
 
 }
@@ -705,6 +707,9 @@ div::-webkit-scrollbar-track {
   min-height: 89vh;
   /* padding-bottom: 17vh; */
   position: relative;
+  width: 600px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .chat_screen.main .nav {
@@ -717,7 +722,7 @@ div::-webkit-scrollbar-track {
   align-items: center;
   justify-content: space-between;
   font-size: 22px;
-  padding: 8px 20px;
+  padding: 15px 20px 8px;
   color: #585858;
   background-color: #242424 !important;
 }
@@ -731,25 +736,43 @@ div::-webkit-scrollbar-track {
   max-width: 900px;
   width: 100%;
   margin: auto;
-  padding-top: 2em;
+  padding-top: 4em;
   padding-bottom: 4em;
 }
 
-.chat_screen .main-container .greet {
+.chat_screen .main-container .greet,
+.jumbotron .greet
+ {
   margin: 20px 0px;
   font-size: 2em;
   color: #c4c7c5;
   font-weight: 500px;
 }
 
+.jumbotron .greet
+{
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
 .chat_screen .main-container .greet p:nth-of-type(2) {
   font-size: 20px !important;
 }
 
-.chat_screen.main .greet span {
+.chat_screen.main .greet span,
+.jumbotron .greet span {
   background: -webkit-linear-gradient(16deg, #4b90ff, #ff5546);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.jumbotron .greet span span {
+  font-size: 14px;
+  font-style: italic;
+  position: relative;
+  transform: translateY(10px);
 }
 
 .chat_screen.main .cards {
@@ -795,7 +818,7 @@ div::-webkit-scrollbar-track {
   right: 0;
   bottom: 70px;
   width: 100%;
-  max-width: 900px;
+  max-width: 600px;
   padding: 6px 12px 0;
   margin: auto;
   z-index: 99;
@@ -870,10 +893,10 @@ div::-webkit-scrollbar-track {
 }
 
 .chat_screen .result-title {
-  margin: 30px 0px 10px;
+  margin: 0px 0px 10px;
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  gap: 13px;
 }
 
 .chat_screen .result img,
@@ -889,6 +912,7 @@ div::-webkit-scrollbar-track {
   align-items: start;
   gap: 10px;
   text-align: left !important;
+  margin-bottom: 30px;
 }
 .chat_screen .result-data img.isLoading {
   animation: spin 4s infinite linear;
@@ -902,16 +926,25 @@ div::-webkit-scrollbar-track {
 }
 
 .chat_screen .loader hr {
-    margin-top: 0.2em !important;
-    margin-bottom: 0.2em !important;
+    margin-top: 0px !important;
+    margin-bottom: 0.1em !important;
   border-radius: 4px;
   border: none;
   background-color: #f6f7f8;
   background: linear-gradient(to right, #b1d5ee, #c953e98a, #9ed7ff);
   background-size: 800px 50px;
-  height: 16px;
-  width: 100%;
+  height: 14px;
   animation: loader 4s infinite linear;
+  margin-left: 0;
+}
+.chat_screen .loader hr:nth-of-type(1) {
+  width: 30%;
+}
+.chat_screen .loader hr:nth-of-type(2) {
+  width: 50%;
+}
+.chat_screen .loader hr:nth-of-type(3) {
+  width: 70%;
 }
 
 @keyframes loader {
@@ -940,6 +973,7 @@ div::-webkit-scrollbar-track {
   font-size: 17px;
   font-weight: 300px;
   line-height: 1.8;
+  margin-bottom: 0;
 }
 
 .scroll-to-bottom {

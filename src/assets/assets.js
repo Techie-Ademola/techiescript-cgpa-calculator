@@ -29,6 +29,7 @@ import dark_question from "./dark_question.png";
 import dark_send from "./dark_send.png";
 import dark_settings from "./dark_settings.png";
 import profile_image from "./profile_image.png";
+import chat_user from "./chat_user.png";
 
 export const assets = {
   history_icon,
@@ -59,4 +60,5 @@ export const assets = {
   dark_settings,
   dark_message,
   profile_image,
+  chat_user
 };
