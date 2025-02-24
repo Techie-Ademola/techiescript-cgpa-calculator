@@ -16,8 +16,8 @@ import {
     HarmBlockThreshold,
   } from "@google/generative-ai";
   
-// const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-const apiKey = "AIzaSyDtJWnuFcYbglwQw1_vUinoBKYkiA5kHsY";
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+// const apiKey = "";
 // const apiKey = "AIzaSyBETJk4feTBUiQysc5n1xkY93rGXVdyOgg";
 async function run(prompt) {
 
@@ -64,7 +64,7 @@ async function run(prompt) {
     });
   
     const result = await chatSession.sendMessage(prompt);
-    console.log(result.response.text());
+    // console.log(result.response.text());
     return result.response.text();
   }
   

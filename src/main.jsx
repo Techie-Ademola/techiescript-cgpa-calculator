@@ -2,13 +2,14 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Router components
 import "./index.css";
-import App from "./App.jsx";
+import App from "./AppComponents/cgpa/App.jsx";
 import { Toaster } from "sonner";
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import Home from "./Home.jsx"; // Import your Home component
-import BottomNav from "./BottomNavbar.jsx"; // Import your Home component
-import CalcPage from "./Calc.jsx"; // Import another page component
-import ChatPage from "./Chat.jsx"; // Import another page component
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import BottomNav from "./AppComponents/BottomNavbar.jsx";
+import CalcPage from "./AppComponents/calces/Calculator.jsx";
+import ChatPage from "./AppComponents/chat/ChatScreen.jsx";
+import NotesPage from "./AppComponents/notes/App.jsx";
 import ContextProvider from './context/Context.jsx'
 
 createRoot(document.getElementById("root")).render(
@@ -17,9 +18,10 @@ createRoot(document.getElementById("root")).render(
     <Router>
       <Toaster position="top-center" visibleToasts={1} />
       <Routes>
-        <Route path="/" element={<App />} /> {/* Home route */}
-        <Route path="/calculator" element={<CalcPage />} /> {/* Another page route */}
-        <Route path="/chat" element={<ChatPage />} /> {/* Another page route */}
+        <Route path="/" element={<App />} />
+        <Route path="/calculator" element={<CalcPage />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/notes" element={<NotesPage />} />
       </Routes>
       {/* <App /> */}
       <BottomNav />

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 // import './Main.css'
-import { Context } from "../context/Context";
+import { Context } from "../../context/Context";
 
 const ChatScreen = () => {
   const {
@@ -135,7 +135,7 @@ const ChatScreen = () => {
         ) : (
           <>
             {responses.map((item, index) => (
-              <div className="result">
+              <div key={index} className="result">
                 <div className="result-title border-bottom pb-2">
                   <img
                     src={assets.chat_user}

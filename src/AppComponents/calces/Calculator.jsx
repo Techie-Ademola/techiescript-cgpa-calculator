@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DisplayWindow from "./DisplayWindow.jsx";
+import HistoryDrawer from "./HistoryDrawer.jsx";
 import KeysWindow from "./KeysWindow.jsx";
 import { toast } from "sonner";
-import HistoryDrawer from "./HistoryDrawer";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
@@ -97,10 +97,19 @@ const Calculator = () => {
   };
 
   const clearHistory = () => {
-    setHistory([]);
-    setIsDrawerOpen(false);
-    localStorage.removeItem("calcHistory");
-    toast.success("History cleared!");
+    swal({
+      title: `Confirm you want to clear calculation history`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        setHistory([]);
+        setIsDrawerOpen(false);
+        localStorage.removeItem("calcHistory");
+        toast.success("History cleared!");
+      }
+    });
   };
 
   return (

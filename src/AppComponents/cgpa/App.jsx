@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import swal from "sweetalert"; // Import SweetAlert
 import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
-import "./App.css";
+import "../../App.css";
 
 const gradingSystem = [
   { min: 70, max: 100, grade: "A", points: 5 },
@@ -221,7 +221,7 @@ export default function App() {
 
   return (
     <div className="container px-sm-4 pt-3 cgpa_calc" style={{
-  width: '800px',
+  width: '1000px',
   maxWidth: '100%',
   margin: '0 auto'
     }}>
