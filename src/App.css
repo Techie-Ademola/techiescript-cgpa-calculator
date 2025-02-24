@@ -644,12 +644,14 @@ input:focus-visible {
   right: 0;
   background: #1a1a1a;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+  padding: 0 20px 20px;
   z-index: 1000;
   border-radius: 15px 15px 0 0;
   min-height: 90vh;
+  max-height: 90vh;
   transition: bottom 0.2s ease, opacity 0.2s ease;
   /* Smooth transition */
+  overflow-y: scroll;
 }
 
 .history-drawer.opened {
@@ -662,6 +664,7 @@ input:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 20px;
 }
 
 .clear-history {
@@ -877,7 +880,7 @@ div::-webkit-scrollbar-track {
   border: none !important;
   outline: none !important;
   padding: 8px;
-  font-size: 18px;
+  font-size: 16px;
   width: 100%;
 }
 
@@ -928,7 +931,6 @@ div::-webkit-scrollbar-track {
   align-items: start;
   gap: 10px;
   text-align: left !important;
-  margin-bottom: 30px;
 }
 .chat_screen .result-data img.isLoading {
   animation: spin 4s infinite linear;
@@ -961,6 +963,19 @@ div::-webkit-scrollbar-track {
 }
 .chat_screen .loader hr:nth-of-type(3) {
   width: 70%;
+}
+
+.copy_icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.copy_icon:hover {
+  background: #343a40;
 }
 
 @keyframes loader {

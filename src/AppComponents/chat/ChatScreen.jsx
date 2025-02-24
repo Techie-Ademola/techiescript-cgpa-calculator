@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { assets } from "../../assets/assets";
 // import './Main.css'
 import { Context } from "../../context/Context";
+import { toast } from "sonner";
 
 const ChatScreen = () => {
   const {
@@ -34,24 +35,36 @@ const ChatScreen = () => {
     // input.length < 1 ? null : onSent();
 
     if (input.length > 0) {
-        setInput('');
+      setInput("");
       onSent();
 
-        setTimeout(() => {
-            if (mainContainerRef.current) {
-              mainContainerRef.current.scrollTop =
-                mainContainerRef.current.scrollHeight;
-              mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
-            }
-        }, 500);
+      setTimeout(() => {
+        if (mainContainerRef.current) {
+          mainContainerRef.current.scrollTop =
+            mainContainerRef.current.scrollHeight;
+          mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 500);
     } else {
     }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && input.length > 0) {
-        handleSubmit();
+      handleSubmit();
     }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        toast("Copied");
+      },
+      (err) => {
+        toast("Failed to copy");
+        console.error("Failed to copy: ", err);
+      }
+    );
   };
 
   return (
@@ -62,10 +75,7 @@ const ChatScreen = () => {
         <div>
           {/* <button></button> */}
           {/* <img src={assets.user_icon} alt="" /> */}
-          <img
-            src={assets.chat_user}
-            alt=""
-          />
+          <img src={assets.chat_user} alt="" />
         </div>
       </div>
 
@@ -137,10 +147,7 @@ const ChatScreen = () => {
             {responses.map((item, index) => (
               <div key={index} className="result">
                 <div className="result-title border-bottom pb-2">
-                  <img
-                    src={assets.chat_user}
-                    alt=""
-                  />
+                  <img src={assets.chat_user} alt="" />
                   <p
                     className="text-left mb-0"
                     style={{
@@ -155,10 +162,19 @@ const ChatScreen = () => {
                 </div>
                 <div className="result-data">
                   <img src={assets.gemini_icon} alt="" />
-                  <p
-                    key={index}
-                    dangerouslySetInnerHTML={{ __html: item.response }}
-                  ></p>
+
+                  <div className="w-100">
+                    <p
+                      key={index}
+                      dangerouslySetInnerHTML={{ __html: item.response }}
+                    ></p>
+                    <div
+                      className="copy_icon"
+                      onClick={() => copyToClipboard(item.response)}
+                    >
+                      <i className="bi bi-copy text-white"></i>
+                    </div>
+                  </div>
                 </div>
 
                 {/* <div key={index}>
