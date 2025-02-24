@@ -8,7 +8,8 @@ export default function NotesBody({
   formatDate,
   handleDeleteNote,
   handleArchiveNote,
-  searchTerm, setSearchTerm,
+  searchTerm,
+  setSearchTerm,
   handleEditNote,
 }) {
   let activeNoteList = (
@@ -21,10 +22,17 @@ export default function NotesBody({
     />
   );
   if (activeNotes.length === 0) {
-    activeNoteList = archivedNotes.length && searchTerm.length < 1 ? 
-    <h5 className="red">No notes available</h5>
-    :
-     <h5 className="red d-flex justify-content-center align-items-center" style={{ minHeight: '55vh' }}>No notes available</h5>;
+    activeNoteList =
+      archivedNotes.length && !activeNotes.length && searchTerm.length >= 0 ? (
+        <h6 className="red">No note available</h6>
+      ) : (
+        <h6
+          className="red d-flex justify-content-center align-items-center"
+          style={{ minHeight: "55vh" }}
+        >
+          No note available
+        </h6>
+      );
   }
 
   let archiveNoteList = (
@@ -37,15 +45,14 @@ export default function NotesBody({
     />
   );
   if (archivedNotes.length === 0) {
-    archiveNoteList = <h5 className="red">No notes available</h5>;
+    archiveNoteList = <h6 className="red">No note available</h6>;
   }
 
-  useEffect(() => {
-  }, [activeNotes, archivedNotes])
-  
+  useEffect(() => {}, [activeNotes, archivedNotes]);
+
   return (
     <div className="note-app__body mt-0 px-0">
-    {/* {(searchTerm.length > 0 && activeNotes.length >= 0) || (searchTerm.length > 0 && activeNotes.length >= 0) && ( */}
+      {/* {(searchTerm.length > 0 && activeNotes.length >= 0) || (searchTerm.length > 0 && activeNotes.length >= 0) && ( */}
       <>
         <div className="note-search">
           <input
@@ -54,20 +61,23 @@ export default function NotesBody({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="my-0 w-100 form-control"
-            disabled={activeNotes.length === 0}
+            disabled={activeNotes.length === 0 && !searchTerm.length}
           />
         </div>
         <h4 className="text-left my-4">Active Notes</h4>
       </>
-    {/* )} */}
+      {/* )} */}
       {activeNoteList}
       {archivedNotes.length > 0 ? (
         <>
-      <h4 className="border-top text-left my-4 mt-5 pt-3">Archived Notes</h4>
-      {archiveNoteList}
+          <h4 className="border-top text-left my-4 mt-5 pt-3">
+            Archived Notes
+          </h4>
+          {archiveNoteList}
         </>
-      ) : (<></>)
-      }
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

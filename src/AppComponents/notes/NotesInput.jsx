@@ -22,10 +22,10 @@ export default function NotesInput({ onAddNotes, initialTitle, initialBody }) {
     }
   }
 
-useEffect(() => {
-  setTitle(initialTitle ? initialTitle : "")
-  setBody(initialBody ? initialBody : "")
-}, [initialTitle, initialBody])
+  useEffect(() => {
+    setTitle(initialTitle ? initialTitle : "");
+    setBody(initialBody ? initialBody : "");
+  }, [initialTitle, initialBody]);
 
   return (
     <>
@@ -49,10 +49,7 @@ useEffect(() => {
           value={body}
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
-        <button type="submit">
-        {initialTitle ? "Update" : "Create"}
-        
-        </button>
+        <button type="submit">{initialTitle ? "Update" : "Create"}</button>
       </form>
     </>
   );

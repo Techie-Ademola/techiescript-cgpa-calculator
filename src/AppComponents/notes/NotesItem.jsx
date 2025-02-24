@@ -14,7 +14,6 @@ export default function NotesItem({
 }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-
   return (
     <>
       <div className="note-item">
@@ -28,21 +27,21 @@ export default function NotesItem({
             className="note-item__view-button text-white"
             onClick={() => setIsDrawerOpen(true)}
           >
-          <i className="bi bi-view-list"></i>
+            <i className="bi bi-view-list"></i>
             {/* View */}
           </button>
           <button
             className="note-item__edit-button text-white"
             onClick={() => handleEditNote(id)}
           >
-          <i className="bi bi-pencil-square"></i>
+            <i className="bi bi-pencil-square"></i>
             {/* Edit */}
           </button>
           <button
             className="note-item__delete-button"
             onClick={() => handleDeleteNote(id)}
           >
-          <i className="bi bi-trash3"></i>
+            <i className="bi bi-trash3"></i>
             {/* Delete */}
           </button>
           {!archived ? (
@@ -50,7 +49,7 @@ export default function NotesItem({
               className="note-item__archive-button"
               onClick={() => handleArchiveNote(id)}
             >
-          <i className="bi bi-archive"></i>
+              <i className="bi bi-archive"></i>
               {/* Archive */}
             </button>
           ) : (
@@ -58,17 +57,16 @@ export default function NotesItem({
               className="note-item__archive-button"
               onClick={() => handleArchiveNote(id)}
             >
-            <i className="bi bi-folder-minus"></i>
+              <i className="bi bi-folder-minus"></i>
               {/* Unarchive */}
             </button>
           )}
         </div>
       </div>
 
-
-      <ViewNoteDrawer 
-        isOpen={isDrawerOpen} 
-        onClose={() => setIsDrawerOpen(false)} 
+      <ViewNoteDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
         title={title}
         body={body}
         createdAt={formatDate(createdAt)}
