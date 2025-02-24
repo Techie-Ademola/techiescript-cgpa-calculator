@@ -79,6 +79,10 @@ input::-webkit-outer-spin-button {
   display: none;
 }
 
+textarea {
+  overflow-y: scroll;
+}
+
 textarea:checked,
 textarea,
 input:checked,

@@ -21,10 +21,10 @@ export default function NotesBody({
     />
   );
   if (activeNotes.length === 0) {
-    activeNoteList = archivedNotes.length ? 
+    activeNoteList = archivedNotes.length && searchTerm.length < 1 ? 
     <h5 className="red">No notes available</h5>
     :
-     <h5 className="red d-flex justify-content-center align-items-center" style={{ minHeight: '75vh' }}>No notes available</h5>;
+     <h5 className="red d-flex justify-content-center align-items-center" style={{ minHeight: '55vh' }}>No notes available</h5>;
   }
 
   let archiveNoteList = (
@@ -45,20 +45,21 @@ export default function NotesBody({
   
   return (
     <div className="note-app__body mt-0 px-0">
-    {(activeNotes.length !== 0 || archivedNotes.length > 0) && (
+    {/* {(searchTerm.length > 0 && activeNotes.length >= 0) || (searchTerm.length > 0 && activeNotes.length >= 0) && ( */}
       <>
-    <div className="note-search">
-        <input
-          type="text"
-          placeholder="Search Notes ..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="my-0 w-100 form-control"
-        />
-      </div>
-      <h4 className="text-left my-4">Active Notes</h4>
+        <div className="note-search">
+          <input
+            type="text"
+            placeholder="Search Notes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="my-0 w-100 form-control"
+            disabled={activeNotes.length === 0}
+          />
+        </div>
+        <h4 className="text-left my-4">Active Notes</h4>
       </>
-    )}
+    {/* )} */}
       {activeNoteList}
       {archivedNotes.length > 0 ? (
         <>

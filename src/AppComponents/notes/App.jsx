@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import NotesHeader from "./NotesHeader";
 import NotesBody from "./NotesBody";
 import { getInitialData, showFormattedDate } from "../../utils/index";
-import $ from 'jquery';
+import $ from "jquery";
 import bus from "../../utils/bus";
 import { toast } from "sonner";
-import swal from "sweetalert"; 
+import swal from "sweetalert";
 
 export default function App() {
   const [notes, setNotes] = useState([]);
@@ -42,15 +42,15 @@ export default function App() {
   };
 
   const handleEditNote = (id) => {
-  $('#exampleModal').modal('show');
-  
-  const noteToEdit = notes.find(note => note.id === id);
-  // console.log('edit called:', noteToEdit);
+    $("#exampleModal").modal("show");
+
+    const noteToEdit = notes.find((note) => note.id === id);
+    // console.log('edit called:', noteToEdit);
     setEditingNote(noteToEdit);
   };
 
   const handleUpdateNote = (updatedNote) => {
-    const updatedNotes = notes.map(note => 
+    const updatedNotes = notes.map((note) =>
       note.id === updatedNote.id ? updatedNote : note
     );
     setNotes(updatedNotes);
@@ -61,7 +61,7 @@ export default function App() {
 
   const handleDeleteNote = (id) => {
     const noteTobeDeleted = notes.filter((note) => note.id === id);
-    
+
     swal({
       title: `Confirm you want to delete ${noteTobeDeleted[0].title} note`,
       // title: `Confirm you want to delete ${noteTobeDeleted[0].title} note permanently`,
@@ -70,7 +70,6 @@ export default function App() {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-
         const updatedNotes = notes.filter((note) => note.id !== id);
         setNotes(updatedNotes);
         localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Update local storage
@@ -82,9 +81,10 @@ export default function App() {
   const handleArchiveNote = (id) => {
     const updatedNotes = notes.map((note) => {
       if (note.id === id) {
-        toast.success(!note.archived ? `Archived ${note.title}` : `Unarchived ${note.title}`);
+        toast.success(
+          !note.archived ? `Archived ${note.title}` : `Unarchived ${note.title}`
+        );
         return { ...note, archived: !note.archived }; // Toggle archived status
-
       }
       return note;
     });
@@ -92,9 +92,10 @@ export default function App() {
     localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Update local storage
   };
 
-  const filteredData = notes.filter((note) =>
-    note.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-  note.body.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = notes.filter(
+    (note) =>
+      note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      note.body.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const activeNotes = filteredData.filter((note) => !note.archived);
@@ -102,22 +103,23 @@ export default function App() {
 
   return (
     <>
-    <div className="w-100 notes_wrap px-2">
-      <NotesHeader 
-        onAddNotes={onAddNotes} 
-        editingNote={editingNote} 
-        handleUpdateNote={handleUpdateNote} 
-      />
-      <NotesBody
-        activeNotes={activeNotes}
-        archivedNotes={archivedNotes}
-        formatDate={showFormattedDate}
-        handleDeleteNote={handleDeleteNote}
-        handleArchiveNote={handleArchiveNote}
-        handleEditNote={handleEditNote}
-        searchTerm={searchTerm} setSearchTerm={setSearchTerm}
-      />
-    </div>
+      <div className="w-100 notes_wrap px-2">
+        <NotesHeader
+          onAddNotes={onAddNotes}
+          editingNote={editingNote}
+          handleUpdateNote={handleUpdateNote}
+        />
+        <NotesBody
+          activeNotes={activeNotes}
+          archivedNotes={archivedNotes}
+          formatDate={showFormattedDate}
+          handleDeleteNote={handleDeleteNote}
+          handleArchiveNote={handleArchiveNote}
+          handleEditNote={handleEditNote}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      </div>
     </>
   );
 }
