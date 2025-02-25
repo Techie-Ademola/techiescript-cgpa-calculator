@@ -22,6 +22,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/calculator" element={<CalcPage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/notes" element={<NotesPage />} />
+        <Route path="/archived" element={<NotesPage />} />
       </Routes>
       {/* <App /> */}
       <BottomNav />

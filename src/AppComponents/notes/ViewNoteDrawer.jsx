@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { copyToClipboard } from "../../utils/index";
 
 const ViewNoteDrawer = ({
   isOpen,
@@ -7,20 +7,9 @@ const ViewNoteDrawer = ({
   title,
   body,
   createdAt,
+  image,
   archived,
 }) => {
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast("Note Copied");
-      },
-      (err) => {
-        toast("Failed to copy");
-        console.error("Failed to copy: ", err);
-      }
-    );
-  };
-
   return (
     <>
       <div className={`history-drawer ${isOpen ? "opened" : ""}`}>
@@ -45,7 +34,17 @@ const ViewNoteDrawer = ({
             </button>
           </div>
         </div>
-        <h4 className="text-left mb-0">{title}</h4>
+        {image && (
+          <img src={image} className="w-100 img-responsive img-fluid" alt="" />
+        )}
+        <h4 className={`${image ? "mt-4" : ""} text-left mb-0`}>
+          {title}{" "}
+          {archived && (
+            <small className="archived_badge">
+            Archived
+            </small>
+          )}
+        </h4>
         <p className="mb-0 text-left text-muted">
           <small>{createdAt}</small>
         </p>
@@ -53,6 +52,7 @@ const ViewNoteDrawer = ({
           className="w-100 text-left text-white my-4"
           style={{
             textWrap: "wrap",
+            lineHeight: "2",
           }}
         >
           {body}

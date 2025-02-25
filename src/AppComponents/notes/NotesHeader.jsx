@@ -45,7 +45,7 @@ export default function NotesHeader({
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content" style={{ background: "#242424" }}>
+          <div className="modal-content" style={{ background: "#202222" }}>
             <div className="modal-header border-0">
               <h5 className="modal-title" id="exampleModalLabel">
                 {editingNote ? "Edit Note" : "Create New Note"}
@@ -75,6 +75,7 @@ export default function NotesHeader({
                   }}
                   initialTitle={editingNote ? editingNote.title : ""} // Populate title if editing
                   initialBody={editingNote ? editingNote.body : ""} // Populate body if editing
+                  initialImage={editingNote ? editingNote.image : null} // Populate image if editing
                 />
               </div>
             </div>

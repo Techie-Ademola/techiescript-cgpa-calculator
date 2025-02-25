@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { assets } from "../../assets/assets";
 // import './Main.css'
 import { Context } from "../../context/Context";
-import { toast } from "sonner";
+import { copyToClipboard } from "../../utils/index";
 
 const ChatScreen = () => {
   const {
@@ -55,18 +55,6 @@ const ChatScreen = () => {
     }
   };
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast("Copied");
-      },
-      (err) => {
-        toast("Failed to copy");
-        console.error("Failed to copy: ", err);
-      }
-    );
-  };
-
   return (
     <div className="main chat_screen position-relative">
       <div className="nav">
@@ -88,7 +76,7 @@ const ChatScreen = () => {
               </p>
               <p>How can I help you today ?</p>
             </div>
-            <div className="cards row px-4">
+            <div className="cards row px-3">
               <div className="col-6 col-md-3 px-2 py-2">
                 <div
                   className="card"

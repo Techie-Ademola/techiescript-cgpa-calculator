@@ -15,12 +15,26 @@ export default function BottomNavbar() {
 
   return (
     <>
-      {currentRoute.includes("/notes") || currentRoute.includes("/chat") ? (
+      {currentRoute.includes("/notes") ||
+      currentRoute.includes("/chat") ||
+      currentRoute.includes("/notes") ||
+      currentRoute.includes("/archived") ? (
         <></>
       ) : (
         <div className="author">
           Developed by <span>Techiescript 👨‍💻 </span>
         </div>
+      )}
+
+      {currentRoute.includes("/notes") ? (
+        <Link
+          to="/archived"
+          className="floating_archive_btn d-flex justify-content-center align-items-center"
+        >
+          <i className="bi bi-archive"></i>
+        </Link>
+      ) : (
+        <></>
       )}
 
       <div className="navigation">
@@ -54,7 +68,13 @@ export default function BottomNavbar() {
               <span className="text">Chat AI</span>
             </Link>
           </li>
-          <li className={`list ${activeLink === "/notes" ? "active" : ""}`}>
+          <li
+            className={`list ${
+              activeLink === "/notes" || activeLink === "/archived"
+                ? "active"
+                : ""
+            }`}
+          >
             <Link to="/notes" onClick={() => handleLinkClick("/notes")}>
               <span className="icon">
                 <i className="bi bi-card-checklist"></i>

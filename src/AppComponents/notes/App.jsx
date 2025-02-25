@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NotesHeader from "./NotesHeader";
 import NotesBody from "./NotesBody";
-import { getInitialData, showFormattedDate } from "../../utils/index";
+import { showFormattedDate } from "../../utils/index";
 import $ from "jquery";
 import bus from "../../utils/bus";
 import { toast } from "sonner";
@@ -11,12 +11,19 @@ export default function App() {
   const [notes, setNotes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingNote, setEditingNote] = useState(null);
+  const [sortOrder, setSortOrder] = useState("desc"); // State for sort order
 
   useEffect(() => {
     // Retrieve notes from local storage when the app initializes
     const savedNotes = localStorage.getItem("notes");
+    const savedSort = localStorage.getItem("prev_sort");
+
     if (savedNotes) {
       setNotes(JSON.parse(savedNotes));
+    }
+
+    if (savedSort) {
+      setSortOrder(savedSort);
     }
 
     bus.on("create_active", (val) => {
@@ -33,11 +40,18 @@ export default function App() {
       body: newNote.body,
       createdAt: new Date().toISOString(), // Current date in ISO format
       archived: false, // Default value for archived
+      image: newNote.image, // Include the image in the note object
     };
 
-    const updatedNotes = [...notes, noteObject];
-    setNotes(updatedNotes);
-    localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Save updated notes to local storage
+    if (sortOrder === "desc") {
+      const updatedNotes = [noteObject, ...notes]; // Add new note at the top
+      setNotes(updatedNotes);
+      localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Save updated notes to local storage
+    } else {
+      const updatedNotes = [...notes, noteObject]; // Add new note at the top
+      setNotes(updatedNotes);
+      localStorage.setItem("notes", JSON.stringify(updatedNotes)); 
+    }
     toast.success("Note created!");
   };
 
@@ -92,6 +106,22 @@ export default function App() {
     localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Update local storage
   };
 
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+
+    const sortedNotes = [...notes].sort((a, b) => {
+      if (order === "asc") {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      } else {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+    });
+
+    setNotes(sortedNotes);
+    localStorage.setItem("prev_sort", order);
+    localStorage.setItem("notes", JSON.stringify(sortedNotes)); // Update local storage
+  };
+
   const filteredData = notes.filter(
     (note) =>
       note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -118,6 +148,8 @@ export default function App() {
           handleEditNote={handleEditNote}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          sortOrder={sortOrder} // Pass sort order to NotesBody
+          handleSortChange={handleSortChange} // Pass sort change handler
         />
       </div>
     </>

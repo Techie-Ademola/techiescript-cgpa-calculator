@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+
 const getInitialData = () => ([
     {
       id: 1,
@@ -62,6 +64,27 @@ const getInitialData = () => ([
 
     return `${formattedDate} at ${formattedTime}`; // Combine date and time
   }
+
+
+  const copyToClipboard = (htmlText) => {
+    // Create a temporary element to hold the HTML
+    const tempElement = document.createElement("div");
+    tempElement.innerHTML = htmlText; // Set the inner HTML to the provided text
+
+    // Extract the plain text from the temporary element
+    const plainText = tempElement.innerText || tempElement.textContent;
+
+    // Copy the plain text to the clipboard
+    navigator.clipboard.writeText(plainText).then(
+      () => {
+        toast("Copied");
+      },
+      (err) => {
+        toast("Failed to copy");
+        console.error("Failed to copy: ", err);
+      }
+    );
+  };
   
-  export { getInitialData, showFormattedDate };
+  export { getInitialData, showFormattedDate, copyToClipboard };
   
