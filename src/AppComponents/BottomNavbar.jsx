@@ -19,7 +19,7 @@ export default function BottomNavbar() {
       currentRoute.includes("/chat") ||
       currentRoute.includes("/notes") ||
       currentRoute.includes("/archived") ? (
-        <></>
+        <div></div>
       ) : (
         <div className="author">
           Developed by <span>Techiescript 👨‍💻 </span>
@@ -34,7 +34,7 @@ export default function BottomNavbar() {
           <i className="bi bi-archive"></i>
         </Link>
       ) : (
-        <></>
+        <div></div>
       )}
 
       <div className="navigation">
