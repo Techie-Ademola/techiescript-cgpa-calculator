@@ -440,7 +440,7 @@ input:focus-visible {
 }
 
 .navigation ul li:nth-child(5).active~.indicator {
-  transform: translateX(calc(70px * 4));
+  transform: translateX(calc(100% * 4));
 }
 
 
