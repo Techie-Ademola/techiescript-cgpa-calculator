@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { assets } from "../../assets/assets";
+// import { assets } from "../../assets/assets";
 // import './Main.css'
 import { Context } from "../../context/Context";
 import { copyToClipboard } from "../../utils/index";
@@ -63,7 +63,7 @@ const ChatScreen = () => {
         <div>
           {/* <button></button> */}
           {/* <img src={assets.user_icon} alt="" /> */}
-          <img src={assets.chat_user} alt="" />
+          <img src={`src/assets/chat_user.png`} alt="" />
         </div>
       </div>
 
@@ -85,7 +85,7 @@ const ChatScreen = () => {
                   }
                 >
                   <p>Suggest beautiful places to see an upcoming road trip</p>
-                  <img src={assets.compass_icon} alt="" />
+                  <img src={`src/assets/compass_icon.png`} alt="" />
                 </div>
               </div>
 
@@ -99,7 +99,7 @@ const ChatScreen = () => {
                   }
                 >
                   <p>Brainstorm team bonding activities for our work retreat</p>
-                  <img src={assets.bulb_icon} alt="" />
+                  <img src={`src/assets/bulb_icon.png`} alt="" />
                 </div>
               </div>
 
@@ -111,7 +111,7 @@ const ChatScreen = () => {
                   }
                 >
                   <p>How to Create a Gyroscope using Disc?</p>
-                  <img src={assets.message_icon} alt="" />
+                  <img src={`src/assets/message_icon.png`} alt="" />
                 </div>
               </div>
 
@@ -125,7 +125,7 @@ const ChatScreen = () => {
                   }
                 >
                   <p>Create a Script for the youtube video about coding</p>
-                  <img src={assets.code_icon} alt="" />
+                  <img src={`src/assets/code_icon.png`} alt="" />
                 </div>
               </div>
             </div>
@@ -135,7 +135,7 @@ const ChatScreen = () => {
             {responses.map((item, index) => (
               <div key={index} className="result">
                 <div className="result-title border-bottom pb-2">
-                  <img src={assets.chat_user} alt="" />
+                  <img src={`src/assets/chat_user.png`} alt="" />
                   <p
                     className="text-left mb-0"
                     style={{
@@ -149,7 +149,7 @@ const ChatScreen = () => {
                   </p>
                 </div>
                 <div className="result-data">
-                  <img src={assets.gemini_icon} alt="" />
+                  <img src={`src/assets/gemini_icon.png`} alt="" />
 
                   <div className="w-100">
                     <p
@@ -176,7 +176,7 @@ const ChatScreen = () => {
               <div className="result-data">
                 <img
                   className={`${loading ? "isLoading" : ""}`}
-                  src={assets.gemini_icon}
+                  src={`src/assets/gemini_icon.png`}
                   alt=""
                 />
                 <div className="loader">
@@ -210,7 +210,7 @@ const ChatScreen = () => {
               {/* <img src={assets.gallery_icon} alt=''/> */}
               {/* <img src={assets.mic_icon} alt=''/> */}
 
-              <img src={assets.send_icon} alt="" />
+              <img src={`src/assets/send_icon.png`} alt="" />
             </div>
           </div>
           <p className="bottom-info px-3">
