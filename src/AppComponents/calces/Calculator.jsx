@@ -3,7 +3,6 @@ import DisplayWindow from "./DisplayWindow.jsx";
 import HistoryDrawer from "./HistoryDrawer.jsx";
 import KeysWindow from "./KeysWindow.jsx";
 import { toast } from "sonner";
-import { evaluate } from 'mathjs';
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
@@ -32,14 +31,15 @@ const Calculator = () => {
   const calcResult = () => {
     if (expression.length !== 0) {
       try {
-        const result = evaluate(expression);
-        setResult(result);
+        let compute = eval(expression);
+        compute = parseFloat(compute.toFixed(4));
+        setResult(compute);
 
         // Check if the current expression already exists in history
-        const exists = history.some(item => item.expression === expression && item.result === result);
+        const exists = history.some(item => item.expression === expression && item.result === compute);
         
         if (!exists) {
-          const newHistory = [...history, { expression, result }];
+          const newHistory = [...history, { expression, result: compute }];
           setHistory(newHistory);
           localStorage.setItem("calcHistory", JSON.stringify(newHistory));
         }
