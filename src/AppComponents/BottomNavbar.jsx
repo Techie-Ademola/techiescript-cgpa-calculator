@@ -15,7 +15,7 @@ export default function BottomNavbar() {
 
   return (
     <>
-      {currentRoute.includes("/notes") ||
+      {/* {currentRoute.includes("/notes") ||
       currentRoute.includes("/chat") ||
       currentRoute.includes("/notes") ||
       currentRoute.includes("/archived") ? (
@@ -24,7 +24,7 @@ export default function BottomNavbar() {
         <div className="author">
           Developed by <span>Techiescript 👨‍💻 </span>
         </div>
-      )}
+      )} */}
 
       {currentRoute.includes("/notes") ? (
         <Link
