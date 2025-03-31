@@ -1658,10 +1658,10 @@ div::-webkit-scrollbar-track {
   right: 0;
   background: white;
   padding: 5px;
-  z-index: 1;
-  /* visibility: hidden !important;
+  z-index: -1 !important;
+  visibility: hidden !important;
   opacity: 0;
-  display: none !important; */
+  display: none !important;
 }
 
 .support-container {
@@ -1706,4 +1706,11 @@ div::-webkit-scrollbar-track {
   top: -5px;
   margin-left: 2px;
   color: #28a745;
+}
+
+.adsbygoogle {
+  /* position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -100 !important; */
 }

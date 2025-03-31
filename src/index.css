@@ -31,6 +31,7 @@ body {
   padding-bottom: 4em;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   /* place-items: center; */
   /* min-width: 320px; */
   min-height: 100vh;
