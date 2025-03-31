@@ -91,7 +91,7 @@ const ChatScreen = () => {
       <div className="main-container">
         {/* Top Ad */}
         <div className="ad-container-top">
-          <AdSenseAd slot="TOP_SLOT_ID" />
+          <AdSenseAd slot="8222238390" />
         </div>
 
         {!showResult ? (
@@ -321,7 +321,7 @@ const ChatScreen = () => {
 
       {/* Bottom Ad */}
       <div className="ad-container-bottom">
-        <AdSenseAd slot="BOTTOM_SLOT_ID" />
+        <AdSenseAd slot="8222238390" />
       </div>
 
       {/* <button onClick={handleSubmit} className="scroll-to-bottom btn">
