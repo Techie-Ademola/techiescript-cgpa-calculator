@@ -113,7 +113,7 @@ const Calculator = () => {
   };
 
   return (
-    <div className="calculator">
+    <div className="calculator  pt-5 mt-2">
       <DisplayWindow expression={displayEXP} result={parseFloat(result).toLocaleString()} />
       <KeysWindow handleButton={handleButton} setIsDrawerOpen={setIsDrawerOpen} />
 

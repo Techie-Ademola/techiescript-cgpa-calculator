@@ -16,6 +16,7 @@ const ContextProvider = (props) => {
         const savedResponses = localStorage.getItem("responses");
         return savedResponses ? JSON.parse(savedResponses) : [];
     });
+    const [selectedImage, setSelectedImage] = useState(null);
 
     // useEffect(() => {
     //     // Save responses to localStorage whenever they change
@@ -34,22 +35,21 @@ const ContextProvider = (props) => {
     }
 
     const onSent = async (prompt) => {
-        setResultData(""); // Reset result data state
+        setResultData("");
         setLoading(true);
         setShowResult(true);
 
         let response;
-        // Set the recent prompt before making the API call
-        if (prompt !== undefined) {
-            setRecentPrompt(prompt); // Set recentPrompt here
-            response = await run(prompt);
-        } else {
-            setPrevPrompts(prev => [...prev, input]);
-            setRecentPrompt(input); // Set recentPrompt here
-            response = await run(input);
-        }
-
         try {
+            if (prompt !== undefined) {
+                setRecentPrompt(prompt);
+                response = await run(prompt, selectedImage);
+            } else {
+                setPrevPrompts(prev => [...prev, input]);
+                setRecentPrompt(input);
+                response = await run(input, selectedImage);
+            }
+
             // Process the response
             let responseArray = response.split("**");
             let newResponse = "";
@@ -62,23 +62,33 @@ const ContextProvider = (props) => {
             }
             let newResponse2 = newResponse.split("*").join("<br/>");
             let newResponseArray = newResponse2.split(" ");
-            for(let i=0; i<newResponseArray.length; i++)
-            {
+            for(let i = 0; i < newResponseArray.length; i++) {
                 const nextWord = newResponseArray[i];
-                delayPara(i,nextWord+" ");
+                delayPara(i, nextWord + " ");
             }
 
-            // Append new response with its corresponding prompt
+            // Append new response with its corresponding prompt and image
             setResponses(prevResponses => [
                 ...prevResponses,
-                { prompt: prompt !== undefined ? prompt : input, response: newResponse2 } // Use the correct prompt
+                { 
+                    prompt: prompt !== undefined ? prompt : input, 
+                    response: newResponse2,
+                    image: selectedImage ? URL.createObjectURL(selectedImage) : null 
+                }
             ]);
+
+            // Clear the selected image after sending
+            setSelectedImage(null);
         } catch (error) {
             console.log("Error occurred:", error);
         } finally {
             setLoading(false);
-            setInput(""); // Reset the input field for new input
+            setInput("");
         }
+    };
+
+    const handleImageUpload = (file) => {
+        setSelectedImage(file);
     };
 
     const contextValue = {
@@ -95,6 +105,8 @@ const ContextProvider = (props) => {
         newChat,
         responses, // Add responses to context value
         setResponses, // Optional: if you need to modify responses directly
+        selectedImage,
+        handleImageUpload,
     }
 
     return (

@@ -1,8 +1,9 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Router components
 import "./index.css";
 import App from "./AppComponents/cgpa/App.jsx";
+import Layout from "./components/Layout";
 import { Toaster } from "sonner";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -11,25 +12,47 @@ import CalcPage from "./AppComponents/calces/Calculator.jsx";
 import ChatPage from "./AppComponents/chat/ChatScreen.jsx";
 import NotesPage from "./AppComponents/notes/App.jsx";
 import ContextProvider from './context/Context.jsx'
+import { MonetizationProvider } from './context/MonetizationContext';
+import CookieConsent from './components/Monetization/CookieConsent';
+import AdFooter from './components/Monetization/AdFooter';
+import { initializeMonetization } from './components/Monetization/monetization';
+import { PageTitleProvider } from './context/PageTitleContext';
 
-createRoot(document.getElementById("root")).render(
-  <ContextProvider>
-  <StrictMode>
-    <Router>
-      <Toaster position="top-center" visibleToasts={1} />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/calculator" element={<CalcPage />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/notes" element={<NotesPage />} />
-        <Route path="/archived" element={<NotesPage />} />
-      </Routes>
-      {/* <App /> */}
-      <BottomNav />
-    </Router>
-  </StrictMode>
-  </ContextProvider>
-);
+// Create an App wrapper to handle initialization
+const AppWrapper = () => {
+  useEffect(() => {
+    initializeMonetization();
+  }, []);
+
+
+  return (
+    <MonetizationProvider>
+      <ContextProvider>
+        <PageTitleProvider>
+          <StrictMode>
+            <Router>
+              <Toaster position="top-center" visibleToasts={1} />
+              <CookieConsent />
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route path="/" element={<App />} />
+                  <Route path="/calculator" element={<CalcPage />} />
+                  <Route path="/chat" element={<ChatPage />} />
+                  <Route path="/notes" element={<NotesPage />} />
+                  <Route path="/archived" element={<NotesPage />} />
+                </Route>
+              </Routes>
+              <BottomNav />
+              <AdFooter />
+            </Router>
+          </StrictMode>
+        </PageTitleProvider>
+      </ContextProvider>
+    </MonetizationProvider>
+  );
+};
+
+createRoot(document.getElementById("root")).render(<AppWrapper />);
 
 
 

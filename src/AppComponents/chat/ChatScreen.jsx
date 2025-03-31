@@ -3,6 +3,9 @@ import { assets } from "../../assets/assets";
 // import './Main.css'
 import { Context } from "../../context/Context";
 import { copyToClipboard } from "../../utils/index";
+import { MonetizationContext } from '../../context/MonetizationContext';
+import { AdSenseAd, BuyMeCoffee } from '../../components/Monetization/AdComponents';
+import { addAffiliateLinks } from '../../components/Monetization/monetization';
 
 const ChatScreen = () => {
   const {
@@ -14,17 +17,24 @@ const ChatScreen = () => {
     setInput,
     input,
     responses,
+    handleImageUpload,
+    selectedImage,
   } = useContext(Context);
 
-  const mainContainerRef = useRef(null);
+  const { trackEvent } = useContext(MonetizationContext);
 
-  //   useEffect(() => {
-  //     if (mainContainerRef.current) {
-  //       mainContainerRef.current.scrollTop =
-  //         mainContainerRef.current.scrollHeight;
-  //       mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
-  //     }
-  //   }, [responses]);
+  const mainContainerRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const [objectURL, setObjectURL] = useState(null);
+
+  const handleImageSelect = (event) => {
+    const file = event.target.files[0];
+    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+      handleImageUpload(file);
+    } else {
+      alert("Please upload a valid image file (JPEG or PNG)");
+    }
+  };
 
   const handleCardClick = (promptText) => {
     setInput(promptText);
@@ -32,9 +42,8 @@ const ChatScreen = () => {
   };
 
   const handleSubmit = () => {
-    // input.length < 1 ? null : onSent();
-
     if (input.length > 0) {
+      trackEvent('Chat', 'message_sent', input);
       setInput("");
       onSent();
 
@@ -55,19 +64,36 @@ const ChatScreen = () => {
     }
   };
 
+  const handleClear = () => {
+    handleImageUpload(null);
+  };
+
+  useEffect(() => {
+    if (selectedImage) {
+      setObjectURL(URL.createObjectURL(selectedImage));
+    } else {
+      setObjectURL(null);
+    }
+  
+  }, [selectedImage])
+  
+
   return (
     <div className="main chat_screen position-relative">
-      <div className="nav">
+      {/* <div className="nav">
         <p className="mb-0">AI Chat</p>
 
         <div>
-          {/* <button></button> */}
-          {/* <img src={assets.user_icon} alt="" /> */}
           <img src={assets.chat_user} alt="" />
         </div>
-      </div>
+      </div> */}
 
       <div className="main-container">
+        {/* Top Ad */}
+        <div className="ad-container-top">
+          <AdSenseAd slot="TOP_SLOT_ID" />
+        </div>
+
         {!showResult ? (
           <>
             <div className="greet">
@@ -81,7 +107,9 @@ const ChatScreen = () => {
                 <div
                   className="card"
                   onClick={() =>
-                    handleCardClick("What are the main topics covered in my course of study?")
+                    handleCardClick(
+                      "What are the main topics covered in my course of study?"
+                    )
                   }
                 >
                   <p>What are the main topics covered in my course of study?</p>
@@ -107,10 +135,15 @@ const ChatScreen = () => {
                 <div
                   className="card"
                   onClick={() =>
-                    handleCardClick("How can I balance my coursework with extracurricular activities?")
+                    handleCardClick(
+                      "How can I balance my coursework with extracurricular activities?"
+                    )
                   }
                 >
-                  <p>How can I balance my coursework with extracurricular activities?</p>
+                  <p>
+                    How can I balance my coursework with extracurricular
+                    activities?
+                  </p>
                   <img src={assets.message_icon} alt="" />
                 </div>
               </div>
@@ -124,7 +157,10 @@ const ChatScreen = () => {
                     )
                   }
                 >
-                  <p>What skills should I focus on to be better prepared for post-graduation?</p>
+                  <p>
+                    What skills should I focus on to be better prepared for
+                    post-graduation?
+                  </p>
                   <img src={assets.code_icon} alt="" />
                 </div>
               </div>
@@ -134,8 +170,22 @@ const ChatScreen = () => {
           <>
             {responses.map((item, index) => (
               <div key={index} className="result">
+                <div className=" mx-0 mb-3 uploaded_img">
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt="Uploaded content"
+                      className="img-fluid img-responsive mx-0 d-block"
+                      style={{
+                        width: "auto",
+                        maxWidth: "200px",
+                        marginTop: "10px",
+                      }}
+                    />
+                  )}
+                </div>
                 <div className="result-title border-bottom pb-2">
-                  <img src={assets.chat_user} alt="" />
+                  <img className="user" src={assets.chat_user} alt="" />
                   <p
                     className="text-left mb-0"
                     style={{
@@ -194,6 +244,31 @@ const ChatScreen = () => {
 
         <div className="main-bottom">
           <div className="search-box">
+            {objectURL && (
+              <div className="selected-image-preview">
+                <img
+                  src={objectURL}
+                  alt="Selected"
+                  style={{ maxWidth: "100px" }}
+                />
+                <button onClick={() => handleClear()}>
+                  <i className="bi bi-x"></i>
+                </button>
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleImageSelect}
+            />
+            <button
+              className="upload-button"
+              onClick={() => fileInputRef.current.click()}
+            >
+              📎
+            </button>
             <input
               onChange={(e) => setInput(e.target.value)}
               value={input}
@@ -220,6 +295,33 @@ const ChatScreen = () => {
             </span>
           </p>
         </div>
+
+        {/* Support button */}
+        <div className="support-container">
+          <BuyMeCoffee />
+        </div>
+
+        {/* Add affiliate products */}
+        <div 
+          className="affiliate-products"
+          dangerouslySetInnerHTML={{ __html: addAffiliateLinks() }}
+        />
+        
+        {/* Example of inline affiliate link */}
+        <a 
+          href="YOUR_AFFILIATE_LINK" 
+          data-affiliate="calculator-pro"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="premium-feature-link"
+        >
+          Upgrade to Calculator Pro
+        </a>
+      </div>
+
+      {/* Bottom Ad */}
+      <div className="ad-container-bottom">
+        <AdSenseAd slot="BOTTOM_SLOT_ID" />
       </div>
 
       {/* <button onClick={handleSubmit} className="scroll-to-bottom btn">

@@ -9,6 +9,8 @@ export default function NotesInput({ onAddNotes, initialTitle, initialBody, init
   const [limitChar, setLimitChar] = useState(maxCharTitle);
   const [image, setImage] = useState(null);
   const supportedImageFormats = ['image/png', 'image/jpeg', 'image/jpg'];
+  const [isLoading, setIsLoading] = useState(false);
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,7 +45,7 @@ export default function NotesInput({ onAddNotes, initialTitle, initialBody, init
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "m9xeajl4"); // Replace with your upload preset
-
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "https://api.cloudinary.com/v1_1/dymxghqum/image/upload",
@@ -53,6 +55,8 @@ export default function NotesInput({ onAddNotes, initialTitle, initialBody, init
     } catch (error) {
       console.error("Error uploading to Cloudinary:", error);
       return null;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -147,7 +151,7 @@ export default function NotesInput({ onAddNotes, initialTitle, initialBody, init
                   strokeDasharray="3.62 3.62"
                 />
 
-                {!image && (
+                {!image && !isLoading && (
                   <>
                     <path
                       fillRule="evenodd"
@@ -194,7 +198,13 @@ export default function NotesInput({ onAddNotes, initialTitle, initialBody, init
               onDrop={handleDrop}
             />
 
-            {image && (
+            {isLoading && (
+              <div className="preview_selImage d-flex justify-content-center align-items-center">
+                <div className="img_preloader text-muted d-flex justify-content-center align-items-center"></div>
+              </div>
+            )}
+
+            {image && !isLoading && (
               <div className="preview_selImage ">
                 <img className="" src={image} alt="Selected" />
               </div>

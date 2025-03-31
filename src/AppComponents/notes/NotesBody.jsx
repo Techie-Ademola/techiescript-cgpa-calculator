@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom"; // Import useLocation to get the current path
 import NotesList from "./NotesList";
+import NotesInput from "./NotesInput";
+import $ from "jquery";
+import bus from "../../utils/bus";
 
 export default function NotesBody({
   activeNotes,
@@ -13,6 +16,9 @@ export default function NotesBody({
   handleEditNote,
   sortOrder,
   handleSortChange,
+  onAddNotes,
+  editingNote,
+  handleUpdateNote,
 }) {
   const location = useLocation(); // Get the current location
 
@@ -68,10 +74,28 @@ export default function NotesBody({
     // console.log("sortOrder: ", sortOrder);
   }, [activeNotes, archivedNotes, sortOrder]);
 
+  const closeModal = () => {
+    $("#exampleModal").modal("hide");
+  };
+
+  const handleSetModal = () => {
+    bus.emit("create_active", true);
+  };
+
+  useEffect(() => {
+    // console.log('editingNote in NotesInput: ', editingNote);
+  }, [editingNote]);
+
   return (
-    <div className="note-app__body mt-0 px-0">
+    <>
+{/* <div className="note-app__header d-flex justify-content-between align-items-center px-0 pb-2">
+      <h3 className="mb-0">Notes</h3>
+
+      
+    </div> */}
+    <div className="note-app__body mt-5 px-0">
       {/* {(searchTerm.length > 0 && activeNotes.length >= 0) || (searchTerm.length > 0 && activeNotes.length >= 0) && ( */}
-      <div className="note-search">
+      <div className="note-search d-flex">
         <input
           type="text"
           placeholder="Search Notes..."
@@ -80,6 +104,17 @@ export default function NotesBody({
           className="my-0 w-100 form-control"
           disabled={activeNotes.length === 0 && !searchTerm.length}
         />
+        <button
+        type="button"
+        className="btn d-flex justify-content-center align-items-center ml-3"
+        style={{ background: "#343a40", color: "white" }}
+        data-toggle="modal"
+        data-target="#exampleModal"
+        onClick={handleSetModal}
+      >
+        <i className="bi-plus"></i>{" "}
+        <span className="text-white">Create</span>
+      </button>
       </div>
       <div className="d-flex justify-content-between align-items-center mb-">
         <div className="d-flex align-items-center">
@@ -153,5 +188,54 @@ export default function NotesBody({
       )}
       {currentRoute.includes("/notes") && <>{activeNoteList}</>}
     </div>
+
+
+      {/* <!-- Modal --> */}
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content" style={{ background: "#202222" }}>
+            <div className="modal-header border-0">
+              <h5 className="modal-title" id="exampleModalLabel">
+                {editingNote ? "Edit Note" : "Create New Note"}
+              </h5>
+              <button
+                type="button"
+                className="close text-white"
+                data-dismiss="modal"
+                aria-label="Close"
+                onClick={closeModal}
+              >
+                <span aria-hidden="true" className="text-white">
+                  &times;
+                </span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="note-input mb-0">
+                <NotesInput
+                  onAddNotes={(note) => {
+                    if (editingNote) {
+                      handleUpdateNote({ ...editingNote, ...note }); // Update existing note
+                    } else {
+                      onAddNotes(note); // Create new note
+                    }
+                    closeModal(); // Close the modal after adding or updating the note
+                  }}
+                  initialTitle={editingNote ? editingNote.title : ""} // Populate title if editing
+                  initialBody={editingNote ? editingNote.body : ""} // Populate body if editing
+                  initialImage={editingNote ? editingNote.image : null} // Populate image if editing
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

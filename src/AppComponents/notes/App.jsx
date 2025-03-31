@@ -134,12 +134,15 @@ export default function App() {
   return (
     <>
       <div className="w-100 notes_wrap px-2">
-        <NotesHeader
+        {/* <NotesHeader
           onAddNotes={onAddNotes}
           editingNote={editingNote}
           handleUpdateNote={handleUpdateNote}
-        />
+        /> */}
         <NotesBody
+          onAddNotes={onAddNotes}
+          editingNote={editingNote}
+          handleUpdateNote={handleUpdateNote}
           activeNotes={activeNotes}
           archivedNotes={archivedNotes}
           formatDate={showFormattedDate}

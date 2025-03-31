@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import swal from "sweetalert"; // Import SweetAlert
 import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
 import "../../App.css";
+import { PremiumFeatureWrapper } from '../../components/PremiumFeatures';
 
 const gradingSystem = [
   { min: 70, max: 100, grade: "A", points: 5 },
@@ -496,6 +497,11 @@ export default function App() {
         <h2 className="font-weight-bold">Cumulative CGPA:</h2>
         <p className="text-xl">{results.CGPA}</p>
       </div> */}
+
+      {/* Premium features */}
+      <PremiumFeatureWrapper>
+        <div>Advanced CGPA Analysis</div>
+      </PremiumFeatureWrapper>
     </div>
   );
 }
