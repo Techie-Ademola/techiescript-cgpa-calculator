@@ -4,65 +4,69 @@ export const AdSenseAd = ({ slot, format = 'auto' }) => {
   const adRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [adKey, setAdKey] = useState(0); // Add key to force re-render when needed
+  const initializationAttempted = useRef(false);
 
   useEffect(() => {
-    let mounted = true;
-    const currentAdRef = adRef.current;
+    let timeoutId;
 
     const initAd = async () => {
+      // Prevent multiple initialization attempts
+      if (initializationAttempted.current) return;
+      initializationAttempted.current = true;
+
       try {
-        if (!mounted || !currentAdRef) return;
-
-        // Wait for AdSense to be ready
-        if (!window.adsbygoogle) {
-          window.adsbygoogle = [];
-        }
-
-        // Clear previous ad if any
-        currentAdRef.innerHTML = '';
-        
-        // Initialize new ad
-        await new Promise((resolve, reject) => {
-          try {
-            window.adsbygoogle.push({});
-            resolve();
-          } catch (error) {
-            reject(error);
+        // Ensure the container has dimensions before initializing
+        if (adRef.current && adRef.current.offsetWidth > 0) {
+          // Clear any existing ad
+          while (adRef.current.firstChild) {
+            adRef.current.removeChild(adRef.current.firstChild);
           }
-        });
 
-        if (mounted) {
+          // Initialize new ad
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
           setIsLoading(false);
+        } else {
+          // If container width is 0, retry after a delay
+          timeoutId = setTimeout(initAd, 1000);
         }
       } catch (err) {
         console.error('AdSense initialization error:', err);
-        if (mounted) {
-          setHasError(true);
-          setIsLoading(false);
-          // Force re-render on error
-          setAdKey(prev => prev + 1);
-        }
+        setHasError(true);
+        setIsLoading(false);
       }
     };
 
-    // Initialize ad after a short delay to ensure DOM is ready
-    const timer = setTimeout(() => {
+    // Wait for the DOM to be ready
+    if (document.readyState === 'complete') {
       initAd();
-    }, 100);
+    } else {
+      window.addEventListener('load', initAd);
+    }
 
-    // Cleanup function
     return () => {
-      mounted = false;
-      clearTimeout(timer);
-      if (currentAdRef) {
-        currentAdRef.innerHTML = '';
-      }
+      clearTimeout(timeoutId);
+      window.removeEventListener('load', initAd);
     };
-  }, [slot, format, adKey]); // Include adKey in dependencies
+  }, [slot, format]); // Remove adKey dependency
 
   return (
-    <div className="ad-container" key={adKey}>
+    <div className="ad-container">
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{
+          display: 'block',
+          minHeight: '250px', // Increased minimum height
+          width: '100%',
+          maxWidth: '100%',
+          overflow: 'hidden',
+          background: isLoading ? '#f1f1f1' : 'transparent'
+        }}
+        data-ad-client="ca-pub-6624079349413852"
+        data-ad-slot={slot}
+        data-ad-format={format}
+        data-full-width-responsive="true"
+      />
       {isLoading && (
         <div className="ad-placeholder">
           Advertisement Loading...
@@ -73,21 +77,6 @@ export const AdSenseAd = ({ slot, format = 'auto' }) => {
           Advertisement unavailable
         </div>
       )}
-      <ins
-        ref={adRef}
-        className="adsbygoogle"
-        style={{
-          display: 'block',
-          minHeight: '100px',
-          width: '100%',
-          textAlign: 'center',
-          background: isLoading ? '#f1f1f1' : 'transparent'
-        }}
-        data-ad-client="ca-pub-6624079349413852"
-        data-ad-slot={slot}
-        data-ad-format={format}
-        data-full-width-responsive="true"
-      />
     </div>
   );
 };
@@ -113,52 +102,18 @@ export const BuyMeCoffee = () => {
   );
 };
 
-// Usage example component
-export const AdDisplay = () => {
-  return (
-    <>
-      {/* Top ad */}
-      <div className="ad-wrapper top-ad">
-        <AdSenseAd 
-          slot="8222238390" 
-          format="auto"
-        />
-      </div>
-
-      {/* Sidebar ad */}
-      <div className="ad-wrapper sidebar-ad">
-        <AdSenseAd
-          slot="8222238390" 
-          format="rectangle"
-        />
-      </div>
-    </>
-  );
-};
-
-// Add styles
+// Updated styles
 const styles = `
   .ad-container {
     width: 100%;
     margin: 20px 0;
-    min-height: 100px;
+    min-height: 250px;
     position: relative;
-  }
-
-  .ad-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
     background: #f1f1f1;
-    color: #666;
-    font-size: 14px;
   }
 
+  .ad-placeholder,
   .ad-error {
     position: absolute;
     top: 0;
@@ -168,9 +123,18 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff0f0;
     color: #666;
     font-size: 14px;
+    z-index: 1;
+  }
+
+  .ad-error {
+    background: rgba(255, 0, 0, 0.1);
+  }
+
+  .adsbygoogle {
+    z-index: 2;
+    position: relative;
   }
 
   @media (max-width: 768px) {
@@ -180,7 +144,30 @@ const styles = `
   }
 `;
 
-// Add styles to document
+// Update AdDisplay component to use different formats and sizes
+export const AdDisplay = () => {
+  return (
+    <>
+      {/* Responsive ad */}
+      <div className="ad-wrapper top-ad">
+        <AdSenseAd 
+          slot="8222238390" 
+          format="auto"
+        />
+      </div>
+
+      {/* Rectangle ad with specific size */}
+      <div className="ad-wrapper sidebar-ad">
+        <AdSenseAd
+          slot="8222238391" // Use a different slot ID for different ad units
+          format="rectangle"
+        />
+      </div>
+    </>
+  );
+};
+
+// Add styles to document (keep existing code)
 if (!document.getElementById('ad-styles')) {
   const styleSheet = document.createElement("style");
   styleSheet.id = 'ad-styles';
