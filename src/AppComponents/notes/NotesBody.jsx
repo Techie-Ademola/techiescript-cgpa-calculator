@@ -4,6 +4,7 @@ import NotesList from "./NotesList";
 import NotesInput from "./NotesInput";
 import $ from "jquery";
 import bus from "../../utils/bus";
+import { AdSenseAd, BuyMeCoffee } from '../../components/Monetization/AdComponents';
 
 export default function NotesBody({
   activeNotes,
@@ -166,7 +167,6 @@ export default function NotesBody({
             </label>
           </div>
         </div>
-        {/* <!-- From Uiverse.io by mahiatlinux -->  */}
 
         {/* <select value={sortOrder} onChange={(e) => handleSortChange(e.target.value)}>
           <option value="desc">Newest First</option>
@@ -187,6 +187,25 @@ export default function NotesBody({
         </>
       )}
       {currentRoute.includes("/notes") && <>{activeNoteList}</>}
+
+
+      {activeNotes.length > 0 && currentRoute.includes("/notes") ? (
+        <>
+        {/* Support button */}
+        <div className="support-container py-4 pb-5">
+          <BuyMeCoffee />
+          <a href="https://www.buymeacoffee.com/adeoyesodev" target='_blank' className='d-block '><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adeoyesodev&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+        </div>
+        </>
+      ) : archivedNotes.length > 0 && currentRoute.includes("/archived") ? (
+        <>
+        {/* Support button */}
+        <div className="support-container py-4 pb-5">
+          <BuyMeCoffee />
+          <a href="https://www.buymeacoffee.com/adeoyesodev" target='_blank' className='d-block '><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adeoyesodev&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+        </div>
+        </>
+      ) : <></> }
     </div>
 
 

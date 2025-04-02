@@ -372,6 +372,7 @@ input:focus-visible {
   color: #ffd200;
   cursor: pointer;
   font-size: 22px;
+  z-index: 99999 !important;
 }
 
 .floating_archive_btn:hover {
@@ -673,7 +674,7 @@ input:focus-visible {
   right: 0;
   background: #1a1a1a;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  padding: 0 14px 20px;
+  padding: 0 14px 100px;
   z-index: 1000;
   border-radius: 15px 15px 0 0;
   min-height: 90vh;
@@ -877,7 +878,7 @@ div::-webkit-scrollbar-track {
   max-width: 600px;
   padding: 6px 12px 0;
   margin: auto;
-  z-index: 99;
+  z-index: 9999 !important;
   background-color: #242424 !important;
 }
 
@@ -1644,7 +1645,9 @@ div::-webkit-scrollbar-track {
 
 .ad-container-top {
   margin-bottom: 1rem;
-  min-height: 90px;
+  height: 90px !important;
+  max-height: 90px !important;
+  overflow: hidden !important;
 }
 
 .ad-container-bottom {
@@ -1660,16 +1663,16 @@ div::-webkit-scrollbar-track {
   background: white;
   padding: 5px;
   z-index: -1 !important;
-  visibility: hidden !important;
+  /* visibility: hidden !important;
   opacity: 0;
-  display: none !important;
+  display: none !important; */
 }
 
 .support-container {
-  position: fixed;
-  right: 100px;
-  top: 80px;
-  z-index: 999999 !important;
+  position: relative;
+  /* right: 100px;
+  top: 80px; */
+  z-index: 999 !important;
 }
 
 .affiliate-products {

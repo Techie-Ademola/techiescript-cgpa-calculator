@@ -91,7 +91,7 @@ const ChatScreen = () => {
       <div className="main-container">
         {/* Top Ad */}
         <div className="ad-container-top">
-          <AdSenseAd slot="8222238390" />
+          <AdSenseAd slot="8222238390" format="rectangle" />
         </div>
 
         {!showResult ? (
@@ -296,19 +296,14 @@ const ChatScreen = () => {
           </p>
         </div>
 
-        {/* Support button */}
-        <div className="support-container">
-          <BuyMeCoffee />
-        </div>
-
         {/* Add affiliate products */}
-        <div 
+        {/* <div 
           className="affiliate-products"
           dangerouslySetInnerHTML={{ __html: addAffiliateLinks() }}
-        />
+        /> */}
         
         {/* Example of inline affiliate link */}
-        <a 
+        {/* <a 
           href="YOUR_AFFILIATE_LINK" 
           data-affiliate="calculator-pro"
           target="_blank" 
@@ -316,12 +311,12 @@ const ChatScreen = () => {
           className="premium-feature-link"
         >
           Upgrade to Calculator Pro
-        </a>
+        </a> */}
       </div>
 
       {/* Bottom Ad */}
       <div className="ad-container-bottom">
-        <AdSenseAd slot="8222238390" />
+        <AdSenseAd slot="8222238390" format="rectangle" />
       </div>
 
       {/* <button onClick={handleSubmit} className="scroll-to-bottom btn">

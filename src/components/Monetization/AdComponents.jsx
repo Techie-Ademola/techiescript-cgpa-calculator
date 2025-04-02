@@ -56,7 +56,8 @@ export const AdSenseAd = ({ slot, format = 'auto' }) => {
         className="adsbygoogle"
         style={{
           display: 'block',
-          minHeight: '250px', // Increased minimum height
+          minHeight: '50px', // Increased minimum height
+          maxHeight: '90px', // Increased minimum height
           width: '100%',
           maxWidth: '100%',
           overflow: 'hidden',
@@ -107,7 +108,8 @@ const styles = `
   .ad-container {
     width: 100%;
     margin: 20px 0;
-    min-height: 250px;
+    min-height: 90px;
+    max-height: 90px;
     position: relative;
     overflow: hidden;
     background: #f1f1f1;

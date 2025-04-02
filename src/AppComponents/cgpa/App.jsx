@@ -3,7 +3,11 @@ import { toast } from "sonner";
 import swal from "sweetalert"; // Import SweetAlert
 import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
 import "../../App.css";
-import { PremiumFeatureWrapper } from '../../components/PremiumFeatures';
+import { PremiumFeatureWrapper } from "../../components/PremiumFeatures";
+import {
+  AdSenseAd,
+  BuyMeCoffee,
+} from "../../components/Monetization/AdComponents";
 
 const gradingSystem = [
   { min: 70, max: 100, grade: "A", points: 5 },
@@ -51,7 +55,6 @@ export default function App() {
         setIsFirstRowEditable(false);
       } else {
         setIsFirstRowEditable(true);
-
       }
     }
 
@@ -60,7 +63,6 @@ export default function App() {
         setIsSecRowEditable(false);
       } else {
         setIsSecRowEditable(true);
-
       }
     }
   }, []);
@@ -86,20 +88,16 @@ export default function App() {
   const editCourse = (semester) => {
     if (semester === "first") {
       setIsFirstRowEditable(!isFirstRowEditable);
-      if (!isFirstRowEditable)
-        toast.success("First Semester Rows Enabled!");
+      if (!isFirstRowEditable) toast.success("First Semester Rows Enabled!");
 
-      if (isFirstRowEditable)
-        toast.success("Saved!");
+      if (isFirstRowEditable) toast.success("Saved!");
     } else if (semester === "second") {
       setIsSecRowEditable(!isSecRowEditable);
-      if (!isSecRowEditable)
-      toast.success("Second Semester Rows Enabled!");
+      if (!isSecRowEditable) toast.success("Second Semester Rows Enabled!");
 
-      if (isSecRowEditable)
-        toast.success("Saved!");
+      if (isSecRowEditable) toast.success("Saved!");
     }
-  }
+  };
 
   const handleChange = (semester, index, field, value) => {
     if (semester === "first") {
@@ -186,7 +184,7 @@ export default function App() {
       first: { GPA: 0, totalGradePoints: 0, totalCreditUnits: 0 },
       second: { GPA: 0, totalGradePoints: 0, totalCreditUnits: 0 },
     });
-    
+
     setLoading(true); // Set loading to true
     setTimeout(() => {
       const firstGPA = calculateGPA(firstSemesterCourses);
@@ -221,21 +219,27 @@ export default function App() {
   };
 
   return (
-    <div className="container px-sm-4 pt-3 cgpa_calc" style={{
-  width: '1000px',
-  maxWidth: '100%',
-  margin: '0 auto'
-    }}>
+    <div
+      className="container px-sm-4 pt-5 mt-3 cgpa_calc"
+      style={{
+        width: "1000px",
+        maxWidth: "100%",
+        margin: "0 auto",
+      }}
+    >
       <div className="jumbotron position-relative pt-0 bg-white">
-      <div className="fit-content">
-        <img src="./cgpa_logo.png" alt="" />
+        <div className="fit-content">
+          <img src="./cgpa_logo.png" alt="" />
 
-        <div className="greet text-center my-0">
-              <p className="mb-0">
-                <span className="font-weight-bold text-uppercase"><span className="d-block text-center text-lowercase">for</span> Tasuedites.</span>
-              </p>
-            </div>
-      </div>
+          <div className="greet text-center my-0">
+            <p className="mb-0">
+              <span className="font-weight-bold text-uppercase">
+                <span className="d-block text-center text-lowercase">for</span>{" "}
+                Tasuedites.
+              </span>
+            </p>
+          </div>
+        </div>
         {/* <h1 className="text-center font-weight-bold">CGPA Calculator</h1> */}
       </div>
 
@@ -247,16 +251,16 @@ export default function App() {
             style={{ background: "#343a40", color: "white" }}
             className="btn mt-2 d-block mx-auto mx-sm-0 mb-4 mb-sm-0 mt-4 mt-sm-0"
           >
-          {
-            !isFirstRowEditable ? 
-            <>
-            <i className="bi bi-pen"></i> Edit
-            </> : 
-            <>
-            {/* <i className="bi bi-upload"></i>  */}
-            Save Changes
-            </>
-          }
+            {!isFirstRowEditable ? (
+              <>
+                <i className="bi bi-pen"></i> Edit
+              </>
+            ) : (
+              <>
+                {/* <i className="bi bi-upload"></i>  */}
+                Save Changes
+              </>
+            )}
           </button>
         )}
       </div>
@@ -335,16 +339,16 @@ export default function App() {
             style={{ background: "#343a40", color: "white" }}
             className="btn mt-0 d-block mx-auto mx-sm-0 mb-4 mb-sm-0 mt-4 mt-sm-0"
           >
-          {
-            !isSecRowEditable ? 
-            <>
-            <i className="bi bi-pen"></i> Edit
-            </> : 
-            <>
-            {/* <i className="bi bi-upload"></i>  */}
-            Save Changes
-            </>
-          }
+            {!isSecRowEditable ? (
+              <>
+                <i className="bi bi-pen"></i> Edit
+              </>
+            ) : (
+              <>
+                {/* <i className="bi bi-upload"></i>  */}
+                Save Changes
+              </>
+            )}
           </button>
         )}
       </div>
@@ -499,9 +503,21 @@ export default function App() {
       </div> */}
 
       {/* Premium features */}
-      <PremiumFeatureWrapper>
+      {/* <PremiumFeatureWrapper>
         <div>Advanced CGPA Analysis</div>
-      </PremiumFeatureWrapper>
+      </PremiumFeatureWrapper> */}
+
+      {/* Support button */}
+      <div className="support-container py-4 pb-5">
+        <BuyMeCoffee />
+        <a
+          href="https://www.buymeacoffee.com/adeoyesodev"
+          target="_blank"
+          className="d-block "
+        >
+          <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adeoyesodev&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" />
+        </a>
+      </div>
     </div>
   );
 }
